@@ -1,0 +1,81 @@
+{
+  "version": "v1",
+  "description": "Attribute dictionary for Fodeen ontology enrichment",
+  "categories": {
+    "food_item": {
+      "description": "Attributes applicable to food items",
+      "attributes": {
+        "perishable": {
+          "type": "boolean",
+          "description": "Whether the food item is perishable"
+        },
+        "organic": {
+          "type": "boolean",
+          "description": "Whether the item is certified organic"
+        },
+        "allergens": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["dairy", "eggs", "fish", "shellfish", "tree_nuts", "peanuts", "wheat", "soybeans"]
+          },
+          "description": "Common allergens present"
+        },
+        "storage_temp": {
+          "type": "string",
+          "enum": ["frozen", "refrigerated", "room_temp"],
+          "description": "Required storage temperature"
+        },
+        "shelf_life_days": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Typical shelf life in days"
+        }
+      }
+    },
+    "unit_of_measure": {
+      "description": "Attributes for units of measurement",
+      "attributes": {
+        "system": {
+          "type": "string",
+          "enum": ["metric", "imperial", "custom"],
+          "description": "Measurement system"
+        },
+        "dimension": {
+          "type": "string",
+          "enum": ["mass", "volume", "length", "count"],
+          "description": "Physical dimension being measured"
+        },
+        "base_unit": {
+          "type": "string",
+          "description": "Base unit for conversion"
+        },
+        "conversion_factor": {
+          "type": "number",
+          "description": "Factor to convert to base unit"
+        }
+      }
+    },
+    "property": {
+      "description": "Attributes for item properties",
+      "attributes": {
+        "data_type": {
+          "type": "string",
+          "enum": ["numeric", "categorical", "text", "date"],
+          "description": "Type of property value"
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit associated with numeric properties"
+        },
+        "allowed_values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Valid values for categorical properties"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+-- Enable pgvector extension
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- Create schemas for different agents
+CREATE SCHEMA IF NOT EXISTS ontology;
+CREATE SCHEMA IF NOT EXISTS mapping;
+CREATE SCHEMA IF NOT EXISTS uom;
+CREATE SCHEMA IF NOT EXISTS reranking;
+CREATE SCHEMA IF NOT EXISTS conformance;
+CREATE SCHEMA IF NOT EXISTS inventory;
+
+-- Grant permissions
+GRANT ALL PRIVILEGES ON SCHEMA ontology TO fodeen;
+GRANT ALL PRIVILEGES ON SCHEMA mapping TO fodeen;
+GRANT ALL PRIVILEGES ON SCHEMA uom TO fodeen;
+GRANT ALL PRIVILEGES ON SCHEMA reranking TO fodeen;
+GRANT ALL PRIVILEGES ON SCHEMA conformance TO fodeen;
+GRANT ALL PRIVILEGES ON SCHEMA inventory TO fodeen;

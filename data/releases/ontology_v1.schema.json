@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://fodeen.io/schemas/ontology/v1",
+  "title": "Fodeen Ontology Schema v1",
+  "description": "Schema for the Fodeen food and inventory ontology graph",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Schema version",
+      "pattern": "^v[0-9]+$"
+    },
+    "nodes": {
+      "type": "array",
+      "description": "Collection of ontology nodes",
+      "items": {
+        "$ref": "#/definitions/OntologyNode"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "description": "Relationships between nodes",
+      "items": {
+        "$ref": "#/definitions/Relationship"
+      }
+    }
+  },
+  "required": ["version", "nodes"],
+  "definitions": {
+    "OntologyNode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the node"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-readable label"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["food_item", "ingredient", "unit_of_measure", "property", "packaging"],
+          "description": "Node category"
+        },
+        "synonyms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Alternative names or spellings"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Additional metadata",
+          "additionalProperties": true
+        }
+      },
+      "required": ["id", "label", "category"]
+    },
+    "Relationship": {
+      "type": "object",
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "description": "Source node ID"
+        },
+        "target_id": {
+          "type": "string",
+          "description": "Target node ID"
+        },
+        "relationship_type": {
+          "type": "string",
+          "enum": ["is_a", "part_of", "measured_in", "has_property"],
+          "description": "Type of relationship"
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Relationship metadata",
+          "additionalProperties": true
+        }
+      },
+      "required": ["source_id", "target_id", "relationship_type"]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{"id": "food_001", "label": "Apple", "category": "food_item", "synonyms": ["apple", "apples"], "attributes": {"perishable": true, "organic": false, "allergens": [], "storage_temp": "refrigerated", "shelf_life_days": 14}}
+{"id": "food_002", "label": "Milk", "category": "food_item", "synonyms": ["milk", "dairy milk"], "attributes": {"perishable": true, "organic": false, "allergens": ["dairy"], "storage_temp": "refrigerated", "shelf_life_days": 7}}
+{"id": "food_003", "label": "Bread", "category": "food_item", "synonyms": ["bread", "loaf"], "attributes": {"perishable": true, "organic": false, "allergens": ["wheat"], "storage_temp": "room_temp", "shelf_life_days": 5}}
+{"id": "food_004", "label": "Chicken Breast", "category": "food_item", "synonyms": ["chicken breast", "chicken breasts", "boneless chicken"], "attributes": {"perishable": true, "organic": false, "allergens": [], "storage_temp": "refrigerated", "shelf_life_days": 3}}
+{"id": "food_005", "label": "Rice", "category": "food_item", "synonyms": ["rice", "white rice", "long grain rice"], "attributes": {"perishable": false, "organic": false, "allergens": [], "storage_temp": "room_temp", "shelf_life_days": 730}}
+{"id": "unit_001", "label": "Kilogram", "category": "unit_of_measure", "synonyms": ["kg", "kilogram", "kilograms"], "attributes": {"system": "metric", "dimension": "mass", "base_unit": "gram", "conversion_factor": 1000}}
+{"id": "unit_002", "label": "Liter", "category": "unit_of_measure", "synonyms": ["l", "liter", "liters", "litre"], "attributes": {"system": "metric", "dimension": "volume", "base_unit": "milliliter", "conversion_factor": 1000}}
+{"id": "unit_003", "label": "Pound", "category": "unit_of_measure", "synonyms": ["lb", "lbs", "pound", "pounds"], "attributes": {"system": "imperial", "dimension": "mass", "base_unit": "gram", "conversion_factor": 453.592}}
+{"id": "unit_004", "label": "Ounce", "category": "unit_of_measure", "synonyms": ["oz", "ounce", "ounces"], "attributes": {"system": "imperial", "dimension": "mass", "base_unit": "gram", "conversion_factor": 28.3495}}
+{"id": "unit_005", "label": "Each", "category": "unit_of_measure", "synonyms": ["each", "ea", "piece", "pieces"], "attributes": {"system": "custom", "dimension": "count", "base_unit": "each", "conversion_factor": 1}}
+{"id": "prop_001", "label": "Weight", "category": "property", "synonyms": ["weight", "mass"], "attributes": {"data_type": "numeric", "unit": "gram"}}
+{"id": "prop_002", "label": "Volume", "category": "property", "synonyms": ["volume", "capacity"], "attributes": {"data_type": "numeric", "unit": "milliliter"}}
+{"id": "prop_003", "label": "Price", "category": "property", "synonyms": ["price", "cost"], "attributes": {"data_type": "numeric", "unit": "USD"}}

@@ -1,0 +1,145 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: fodeen
+      POSTGRES_PASSWORD: fodeen_dev
+      POSTGRES_DB: fodeen_agents
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fodeen"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ontology-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        AGENT_NAME: ontology
+    environment:
+      DATABASE_URL: postgresql://fodeen:fodeen_dev@postgres:5432/fodeen_agents
+      AGENT_PORT: 8001
+    ports:
+      - "8001:8001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./agents/ontology:/app/agents/ontology
+      - ./shared:/app/shared
+      - ./data:/app/data
+    command: uvicorn agents.ontology.main:app --host 0.0.0.0 --port 8001 --reload
+
+  mapping-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        AGENT_NAME: mapping
+    environment:
+      DATABASE_URL: postgresql://fodeen:fodeen_dev@postgres:5432/fodeen_agents
+      AGENT_PORT: 8002
+      ONTOLOGY_AGENT_URL: http://ontology-agent:8001
+    ports:
+      - "8002:8002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      ontology-agent:
+        condition: service_started
+    volumes:
+      - ./agents/mapping:/app/agents/mapping
+      - ./shared:/app/shared
+      - ./data:/app/data
+    command: uvicorn agents.mapping.main:app --host 0.0.0.0 --port 8002 --reload
+
+  uom-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        AGENT_NAME: uom
+    environment:
+      DATABASE_URL: postgresql://fodeen:fodeen_dev@postgres:5432/fodeen_agents
+      AGENT_PORT: 8003
+    ports:
+      - "8003:8003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./agents/uom:/app/agents/uom
+      - ./shared:/app/shared
+      - ./data:/app/data
+    command: uvicorn agents.uom.main:app --host 0.0.0.0 --port 8003 --reload
+
+  reranking-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        AGENT_NAME: reranking
+    environment:
+      DATABASE_URL: postgresql://fodeen:fodeen_dev@postgres:5432/fodeen_agents
+      AGENT_PORT: 8004
+    ports:
+      - "8004:8004"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./agents/reranking:/app/agents/reranking
+      - ./shared:/app/shared
+      - ./data:/app/data
+    command: uvicorn agents.reranking.main:app --host 0.0.0.0 --port 8004 --reload
+
+  conformance-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        AGENT_NAME: conformance
+    environment:
+      DATABASE_URL: postgresql://fodeen:fodeen_dev@postgres:5432/fodeen_agents
+      AGENT_PORT: 8005
+    ports:
+      - "8005:8005"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./agents/conformance:/app/agents/conformance
+      - ./shared:/app/shared
+      - ./data:/app/data
+    command: uvicorn agents.conformance.main:app --host 0.0.0.0 --port 8005 --reload
+
+  inventory-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        AGENT_NAME: inventory
+    environment:
+      DATABASE_URL: postgresql://fodeen:fodeen_dev@postgres:5432/fodeen_agents
+      AGENT_PORT: 8006
+    ports:
+      - "8006:8006"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./agents/inventory:/app/agents/inventory
+      - ./shared:/app/shared
+      - ./data:/app/data
+    command: uvicorn agents.inventory.main:app --host 0.0.0.0 --port 8006 --reload
+
+volumes:
+  postgres_data:
